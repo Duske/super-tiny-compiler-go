@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"super-tiny-compiler/tokenizer"
+	"super-tiny-compiler-go/tokenizer"
 )
 
 type ASTType interface {
@@ -29,16 +29,16 @@ type StringLiteral struct {
 }
 
 type CallExpression struct {
-	value string
+	value  string
 	params []ASTType
 }
 
 type AST struct {
 	typeName string
-	body []ASTType
+	body     []ASTType
 }
 
-func Walk(tokensP *[]tokenizer.Token, currentP *int) ASTType{
+func Walk(tokensP *[]tokenizer.Token, currentP *int) ASTType {
 	var token tokenizer.Token
 	tokens := *tokensP
 	token = tokens[*currentP]
@@ -78,10 +78,10 @@ func Walk(tokensP *[]tokenizer.Token, currentP *int) ASTType{
 
 }
 
-func Parse(tokens[]tokenizer.Token) AST{
+func Parse(tokens []tokenizer.Token) AST {
 	current := 0
 	ast := AST{typeName: "Program"}
-	for current < len(tokens) - 1{
+	for current < len(tokens)-1 {
 		ast.body = append(ast.body, Walk(&tokens, &current))
 	}
 	return ast

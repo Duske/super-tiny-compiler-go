@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"super-tiny-compiler/tokenizer"
-	"super-tiny-compiler/parser"
+	"super-tiny-compiler-go/parser"
+	"super-tiny-compiler-go/tokenizer"
 )
 
 func main() {

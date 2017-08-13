@@ -1,16 +1,16 @@
 package parser
 
 import (
-	"testing"
-	"super-tiny-compiler/tokenizer"
 	"reflect"
+	"super-tiny-compiler-go/tokenizer"
+	"testing"
 )
 
 func TestParserWithEmptyTokens(t *testing.T) {
 	input := []tokenizer.Token{}
 	correctAST := AST{typeName: "Program"}
 	output := Parse(input)
-	if !reflect.DeepEqual(correctAST, output)  {
+	if !reflect.DeepEqual(correctAST, output) {
 		t.Log("Empty tokens does not create an correct AST")
 		t.Fail()
 	}
@@ -30,7 +30,7 @@ func TestParserWithTokens(t *testing.T) {
 	}
 	correctAST := AST{typeName: "Program", body: []ASTType{
 		CallExpression{value: "add", params: []ASTType{
-			NumberLiteral{ "2"},
+			NumberLiteral{"2"},
 			CallExpression{value: "subtract", params: []ASTType{
 				NumberLiteral{"4"},
 				NumberLiteral{"2"},
@@ -38,7 +38,7 @@ func TestParserWithTokens(t *testing.T) {
 		}},
 	}}
 	output := Parse(input)
-	if !reflect.DeepEqual(correctAST, output)  {
+	if !reflect.DeepEqual(correctAST, output) {
 		t.Log("AST is not correct")
 		t.Fail()
 	}
