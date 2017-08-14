@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/duske/super-tiny-compiler-go/parser"
+	"github.com/duske/super-tiny-compiler-go/tokenizer"
 	"os"
-	"super-tiny-compiler-go/parser"
-	"super-tiny-compiler-go/tokenizer"
 )
 
 func main() {

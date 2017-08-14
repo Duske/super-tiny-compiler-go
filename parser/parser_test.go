@@ -1,8 +1,8 @@
 package parser
 
 import (
+	"github.com/duske/super-tiny-compiler-go/tokenizer"
 	"reflect"
-	"super-tiny-compiler-go/tokenizer"
 	"testing"
 )
 

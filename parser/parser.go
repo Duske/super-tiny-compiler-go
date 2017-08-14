@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"super-tiny-compiler-go/tokenizer"
+	"github.com/duske/super-tiny-compiler-go/tokenizer"
 )
 
 type ASTType interface {
