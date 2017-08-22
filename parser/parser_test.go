@@ -8,7 +8,7 @@ import (
 
 func TestParserWithEmptyTokens(t *testing.T) {
 	input := []tokenizer.Token{}
-	correctAST := AST{typeName: "Program"}
+	correctAST := AST{TypeName: "Program"}
 	output := Parse(input)
 	if !reflect.DeepEqual(correctAST, output) {
 		t.Log("Empty tokens does not create an correct AST")
@@ -28,10 +28,10 @@ func TestParserWithTokens(t *testing.T) {
 		{TypeName: "paren", Value: ")"},
 		{TypeName: "paren", Value: ")"},
 	}
-	correctAST := AST{typeName: "Program", body: []ASTType{
-		CallExpression{value: "add", params: []ASTType{
+	correctAST := AST{TypeName: "Program", Body: []ASTType{
+		CallExpression{Value: "add", Params: []ASTType{
 			NumberLiteral{"2"},
-			CallExpression{value: "subtract", params: []ASTType{
+			CallExpression{Value: "subtract", Params: []ASTType{
 				NumberLiteral{"4"},
 				NumberLiteral{"2"},
 			}},

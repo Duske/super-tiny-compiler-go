@@ -5,37 +5,37 @@ import (
 )
 
 type ASTType interface {
-	Value() string
+	NodeValue() string
 }
 
-func (node NumberLiteral) Value() string {
-	return node.value
+func (node NumberLiteral) NodeValue() string {
+	return node.Value
 }
 
-func (node StringLiteral) Value() string {
-	return node.value
+func (node StringLiteral) NodeValue() string {
+	return node.Value
 }
 
-func (node CallExpression) Value() string {
-	return node.value
+func (node CallExpression) NodeValue() string {
+	return node.Value
 }
 
 type NumberLiteral struct {
-	value string
+	Value string
 }
 
 type StringLiteral struct {
-	value string
+	Value string
 }
 
 type CallExpression struct {
-	value  string
-	params []ASTType
+	Value  string
+	Params []ASTType
 }
 
 type AST struct {
-	typeName string
-	body     []ASTType
+	TypeName string
+	Body     []ASTType
 }
 
 func Walk(tokensP *[]tokenizer.Token, currentP *int) ASTType {
@@ -46,27 +46,27 @@ func Walk(tokensP *[]tokenizer.Token, currentP *int) ASTType {
 	if token.TypeName == "number" {
 		*currentP++
 
-		return NumberLiteral{value: token.Value}
+		return NumberLiteral{Value: token.Value}
 	}
 
 	if token.TypeName == "string" {
 		*currentP++
 
-		return StringLiteral{value: token.Value}
+		return StringLiteral{Value: token.Value}
 	}
 	if token.TypeName == "paren" && token.Value == "(" {
 		// go to next token
 		*currentP++
 		token = tokens[*currentP]
 		// use token's value for callexpression
-		callExpression := CallExpression{value: token.Value}
+		callExpression := CallExpression{Value: token.Value}
 
 		// go to next token
 		*currentP++
 		token = tokens[*currentP]
 
 		for token.TypeName != "paren" || (token.TypeName == "paren" && token.Value != ")") {
-			callExpression.params = append(callExpression.params, Walk(&tokens, currentP))
+			callExpression.Params = append(callExpression.Params, Walk(&tokens, currentP))
 			// continue with new token position from the terminated recursive call of walk()
 			token = tokens[*currentP]
 		}
@@ -80,9 +80,9 @@ func Walk(tokensP *[]tokenizer.Token, currentP *int) ASTType {
 
 func Parse(tokens []tokenizer.Token) AST {
 	current := 0
-	ast := AST{typeName: "Program"}
+	ast := AST{TypeName: "Program"}
 	for current < len(tokens)-1 {
-		ast.body = append(ast.body, Walk(&tokens, &current))
+		ast.Body = append(ast.Body, Walk(&tokens, &current))
 	}
 	return ast
 }
